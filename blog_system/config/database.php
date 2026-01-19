@@ -58,4 +58,20 @@ class Database {
 function getDB() {
     return Database::getInstance()->getConnection();
 }
+
+$url = parse_url(getenv("MYSQL_URL"));
+
+$host = $url["host"];
+$user = $url["user"];
+$pass = $url["pass"];
+$db   = ltrim($url["path"], "/");
+$port = $url["port"];
+
+$conn = new mysqli($host, $user, $pass, $db, $port);
+
+if ($conn->connect_error) {
+  die("Database Connection Error: " . $conn->connect_error);
+}
+
+
 ?>
